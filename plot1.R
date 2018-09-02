@@ -1,0 +1,6 @@
+consumption <- read.csv("C:/Users/Erick/Downloads/household_power_consumption.txt", sep=";", na.strings="?",stringsAsFactors = FALSE)
+consumption$DateTime<-strptime(paste(consumption$Date,consumption$Time),'%d/%m/%Y %H:%M:%S')
+studied_consumption<-subset(consumption,DateTime>=strptime('2007-02-01','%Y-%m-%d') & DateTime<strptime('2007-02-03','%Y-%m-%d'))
+png(file="plot1.png", width=480, height=480)
+hist(studied_consumption$Global_active_power, col="red",main="Global Active Power",xlab="Global Active Power (kilowatts)")
+dev.off()

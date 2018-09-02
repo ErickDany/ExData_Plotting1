@@ -1,0 +1,15 @@
+consumption <- read.csv("C:/Users/Erick/Downloads/household_power_consumption.txt", sep=";", na.strings="?",stringsAsFactors = FALSE)
+consumption$DateTime<-strptime(paste(consumption$Date,consumption$Time),'%d/%m/%Y %H:%M:%S')
+studied_consumption<-subset(consumption,DateTime>=strptime('2007-02-01','%Y-%m-%d') & DateTime<strptime('2007-02-03','%Y-%m-%d'))
+png(file="plot4.png", width=480, height=480)
+par(mfrow = c(2, 2))
+{
+plot(studied_consumption$DateTime, studied_consumption$Global_active_power,type = "l",xlab = "",ylab="Global Activity Power")
+plot(studied_consumption$DateTime, studied_consumption$Voltage,type = "l",xlab = "datetime",ylab="Voltage")
+plot(studied_consumption$DateTime,studied_consumption$Sub_metering_1,type="l",col="black",xlab="",ylab="Energy sub metering")
+lines(studied_consumption$DateTime,studied_consumption$Sub_metering_2,type="l",col="red")
+lines(studied_consumption$DateTime,studied_consumption$Sub_metering_3,type="l",col="blue")
+legend("topright",legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),col=c("black","red","blue"),lty="solid")
+plot(studied_consumption$DateTime, studied_consumption$Global_reactive_power,type = "l",xlab = "datetime",ylab="Global_reactive_power")
+}
+dev.off()
